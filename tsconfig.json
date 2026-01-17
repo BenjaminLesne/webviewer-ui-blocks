@@ -23,6 +23,7 @@
       "@/components/viewer-element": ["./registry/components/viewer-element.tsx"],
       "@/components/scroll-view-container": ["./registry/components/scroll-view-container.tsx"],
       "@/components/viewer-canvas": ["./registry/components/viewer-canvas.tsx"],
+      "@/components/document": ["./registry/components/document.tsx"],
       "fumadocs-mdx:collections/*": [".source/*"],
       "@pdftron/webviewer": ["./types/webviewer.d.ts"]
     },
