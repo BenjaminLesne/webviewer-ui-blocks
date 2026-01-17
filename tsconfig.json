@@ -20,6 +20,9 @@
       "@/lib/webviewer-types": ["./registry/lib/webviewer-types.ts"],
       "@/context/webviewer-context": ["./registry/context/webviewer-context.tsx"],
       "@/hooks/*": ["./registry/hooks/*"],
+      "@/components/viewer-element": ["./registry/components/viewer-element.tsx"],
+      "@/components/scroll-view-container": ["./registry/components/scroll-view-container.tsx"],
+      "@/components/viewer-canvas": ["./registry/components/viewer-canvas.tsx"],
       "fumadocs-mdx:collections/*": [".source/*"],
       "@pdftron/webviewer": ["./types/webviewer.d.ts"]
     },
