@@ -1,0 +1,75 @@
+---
+title: WebViewerContext
+description: React context for WebViewer Core and DocumentViewer state management
+---
+
+import { InstallCommand } from '@/components/docs/install-command';
+import { ComponentSource } from '@/components/docs/component-source';
+
+The WebViewerContext provides the foundational React context for managing WebViewer Core and DocumentViewer instances throughout your application.
+
+## Installation
+
+<InstallCommand name="webviewer-context" />
+
+## Usage
+
+Wrap your application (or the part that needs WebViewer) with `WebViewerProvider`. This must be rendered as a child of `LoadWebviewerCore`.
+
+```tsx
+import { LoadWebviewerCore } from '@/components/load-webviewer-core';
+import { WebViewerProvider } from '@/context/webviewer-context';
+
+export function App() {
+  return (
+    <LoadWebviewerCore>
+      <WebViewerProvider>
+        {/* Your WebViewer components */}
+      </WebViewerProvider>
+    </LoadWebviewerCore>
+  );
+}
+```
+
+### Accessing the Context
+
+Use the `useWebViewerContext` hook to access the Core and DocumentViewer instances:
+
+```tsx
+import { useWebViewerContext } from '@/context/webviewer-context';
+
+function MyComponent() {
+  const { Core, documentViewer } = useWebViewerContext();
+
+  // Core and documentViewer may be null before initialization
+  if (!documentViewer) return null;
+
+  return <div>WebViewer is ready!</div>;
+}
+```
+
+For most use cases, prefer the `useCoreInstance` hook which provides guaranteed non-null values and better error handling.
+
+## Props
+
+### WebViewerProvider
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | required | Child components |
+| `workerPath` | `string` | `NEXT_PUBLIC_PDFTRON_PATH/core` or `/webviewer/lib/core` | Path to WebViewer worker files |
+
+## Context Value
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `Core` | `typeof Core \| null` | The WebViewer Core instance |
+| `documentViewer` | `DocumentViewer \| null` | The DocumentViewer instance |
+
+## Environment Variables
+
+- `NEXT_PUBLIC_PDFTRON_PATH`: Base path to WebViewer files (used for default `workerPath`)
+
+## Source
+
+<ComponentSource name="webviewer-context" type="context" />

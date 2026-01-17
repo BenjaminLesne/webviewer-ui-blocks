@@ -1,0 +1,46 @@
+---
+title: ViewerElement
+description: Component that sets the documentViewer viewer element
+---
+
+import { InstallCommand } from '@/components/docs/install-command';
+import { ComponentSource } from '@/components/docs/component-source';
+
+The `ViewerElement` component creates the DOM element where PDF pages are rendered. For most use cases, use `ViewerCanvas` instead, which combines this with `ScrollViewContainer`.
+
+## Installation
+
+<InstallCommand name="viewer-element" />
+
+## Usage
+
+```tsx
+import { ViewerElement } from '@/components/viewer-element';
+import { ScrollViewContainer } from '@/components/scroll-view-container';
+
+function CustomViewer() {
+  return (
+    <ScrollViewContainer className="h-screen overflow-auto">
+      <ViewerElement className="min-h-full" />
+    </ScrollViewContainer>
+  );
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | - | CSS class names for the viewer element |
+| `style` | `CSSProperties` | - | Inline styles for the viewer element |
+
+## Notes
+
+- Must be used within a `WebViewerProvider` context
+- Calls `documentViewer.setViewerElement()` on mount
+- Cleans up by setting element to `null` on unmount
+- This is where PDF pages are visually rendered
+
+## Source
+
+<ComponentSource name="viewer-element" type="component" />

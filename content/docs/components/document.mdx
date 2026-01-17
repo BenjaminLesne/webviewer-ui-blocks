@@ -1,0 +1,98 @@
+---
+title: Document
+description: Component for loading PDF documents into the viewer
+---
+
+import { InstallCommand } from '@/components/docs/install-command';
+import { ComponentSource } from '@/components/docs/component-source';
+
+The `Document` component handles loading PDF documents into the viewer. It uses `@tanstack/react-query` for state management.
+
+## Installation
+
+<InstallCommand name="document" />
+
+## Usage
+
+```tsx
+import { Document } from '@/components/document';
+
+function PDFViewer() {
+  return (
+    <>
+      <ViewerCanvas className="h-screen" />
+      <Document documentPath="/documents/sample.pdf" />
+    </>
+  );
+}
+```
+
+### Handling Load Events
+
+```tsx
+<Document
+  documentPath="/sample.pdf"
+  onLoad={() => console.log('Document loaded!')}
+  onError={(error) => console.error('Load failed:', error)}
+/>
+```
+
+### Loading Remote Documents
+
+```tsx
+<Document documentPath="https://example.com/document.pdf" />
+```
+
+### Dynamic Document Path
+
+```tsx
+function DynamicViewer({ selectedFile }: { selectedFile: string }) {
+  return (
+    <>
+      <ViewerCanvas className="h-screen" />
+      <Document
+        documentPath={selectedFile}
+        onLoad={() => console.log(`Loaded: ${selectedFile}`)}
+      />
+    </>
+  );
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `documentPath` | `string` | required | Path to the PDF document (relative or absolute URL) |
+| `onLoad` | `() => void` | - | Callback when document loads successfully |
+| `onError` | `(error: Error) => void` | - | Callback when loading fails |
+
+## Prerequisites
+
+This component requires:
+- `WebViewerProvider` context
+- `QueryClientProvider` from `@tanstack/react-query` wrapping your app
+
+```tsx
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
+
+function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      {/* Your app */}
+    </QueryClientProvider>
+  );
+}
+```
+
+## Notes
+
+- This is a non-visual component (returns `null`)
+- Tracks previous path to avoid reloading on re-renders
+- Uses `useMutation` from react-query for loading state management
+
+## Source
+
+<ComponentSource name="document" type="component" />

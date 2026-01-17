@@ -1,0 +1,83 @@
+---
+title: LoadWebviewerCore
+description: Component for dynamically loading WebViewer Core script
+---
+
+import { InstallCommand } from '@/components/docs/install-command';
+import { ComponentSource } from '@/components/docs/component-source';
+
+The `LoadWebviewerCore` component dynamically loads the WebViewer Core script and provides loading/error states. It must wrap all other WebViewer components.
+
+## Installation
+
+<InstallCommand name="load-webviewer-core" />
+
+## Usage
+
+```tsx
+import { LoadWebviewerCore } from '@/components/load-webviewer-core';
+import { WebViewerProvider } from '@/context/webviewer-context';
+import { ViewerCanvas } from '@/components/viewer-canvas';
+import { Document } from '@/components/document';
+
+export function PDFViewer() {
+  return (
+    <LoadWebviewerCore>
+      <WebViewerProvider>
+        <ViewerCanvas className="h-screen" />
+        <Document documentPath="/sample.pdf" />
+      </WebViewerProvider>
+    </LoadWebviewerCore>
+  );
+}
+```
+
+### Custom Loading UI
+
+```tsx
+<LoadWebviewerCore
+  loadingUI={<div className="flex items-center justify-center h-full">
+    <Spinner />
+    <span>Loading PDF viewer...</span>
+  </div>}
+  errorUI={<div className="text-red-500">Failed to load viewer</div>}
+>
+  {/* children */}
+</LoadWebviewerCore>
+```
+
+### Handling Load Events
+
+```tsx
+<LoadWebviewerCore
+  onLoad={() => console.log('WebViewer Core loaded!')}
+  onError={(error) => console.error('Failed to load:', error)}
+>
+  {/* children */}
+</LoadWebviewerCore>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | required | Components to render after Core loads |
+| `pdftronPath` | `string` | `NEXT_PUBLIC_PDFTRON_PATH` or `/webviewer/lib` | Path to WebViewer files |
+| `loadingUI` | `ReactNode` | `<div>Loading WebViewer...</div>` | UI shown while loading |
+| `errorUI` | `ReactNode` | `<div>Failed to load...</div>` | UI shown on error |
+| `onLoad` | `() => void` | - | Callback when script loads successfully |
+| `onError` | `(error: Error) => void` | - | Callback when script fails to load |
+
+## Environment Variables
+
+- `NEXT_PUBLIC_PDFTRON_PATH`: Base path to WebViewer files (e.g., `/webviewer/lib`)
+
+## Notes
+
+- Uses Next.js `Script` component with `afterInteractive` strategy
+- Includes retry logic (100ms delay) for cases where Core initializes asynchronously
+- Children are only rendered after `window.Core` is available
+
+## Source
+
+<ComponentSource name="load-webviewer-core" type="component" />

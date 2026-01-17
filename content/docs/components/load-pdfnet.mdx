@@ -1,0 +1,69 @@
+---
+title: LoadPDFNet
+description: Component for dynamically loading PDFNet script
+---
+
+import { InstallCommand } from '@/components/docs/install-command';
+import { ComponentSource } from '@/components/docs/component-source';
+
+The `LoadPDFNet` component dynamically loads the PDFNet.js script for advanced PDF operations. This is optional and only needed if you use PDFNet APIs.
+
+## Installation
+
+<InstallCommand name="load-pdfnet" />
+
+## Usage
+
+```tsx
+import { LoadWebviewerCore } from '@/components/load-webviewer-core';
+import { LoadPDFNet } from '@/components/load-pdfnet';
+import { WebViewerProvider } from '@/context/webviewer-context';
+
+export function PDFViewerWithPDFNet() {
+  return (
+    <LoadWebviewerCore>
+      <LoadPDFNet>
+        <WebViewerProvider>
+          {/* Components that use PDFNet operations */}
+        </WebViewerProvider>
+      </LoadPDFNet>
+    </LoadWebviewerCore>
+  );
+}
+```
+
+### Custom Loading UI
+
+```tsx
+<LoadPDFNet
+  loadingUI={<div>Loading PDFNet module...</div>}
+  errorUI={<div className="text-red-500">Failed to load PDFNet</div>}
+>
+  {/* children */}
+</LoadPDFNet>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | required | Components to render after PDFNet loads |
+| `pdftronPath` | `string` | `NEXT_PUBLIC_PDFTRON_PATH` or `/webviewer/lib` | Path to WebViewer files |
+| `loadingUI` | `ReactNode` | `<div>Loading PDFNet...</div>` | UI shown while loading |
+| `errorUI` | `ReactNode` | `<div>Failed to load...</div>` | UI shown on error |
+| `onLoad` | `() => void` | - | Callback when script loads successfully |
+| `onError` | `(error: Error) => void` | - | Callback when script fails to load |
+
+## Environment Variables
+
+- `NEXT_PUBLIC_PDFTRON_PATH`: Base path to WebViewer files
+
+## Notes
+
+- Script path is `${pdftronPath}/core/pdf/PDFNet.js`
+- Uses a module-level flag to prevent duplicate script loading
+- Only needed when using `useRunWithLicense` hook or direct PDFNet APIs
+
+## Source
+
+<ComponentSource name="load-pdfnet" type="component" />

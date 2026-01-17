@@ -1,0 +1,79 @@
+---
+title: Zoomer
+description: Modern vertical zoom UI with editable input
+---
+
+import { InstallCommand } from '@/components/docs/install-command';
+import { ComponentSource } from '@/components/docs/component-source';
+
+The `Zoomer` component provides a modern zoom interface with an editable input field for direct percentage entry.
+
+## Installation
+
+<InstallCommand name="zoomer" />
+
+## Usage
+
+```tsx
+import { Zoomer } from '@/components/zoomer';
+
+function Sidebar() {
+  return (
+    <div className="fixed right-4 top-1/2 -translate-y-1/2">
+      <Zoomer
+        className="flex flex-col items-center gap-1 bg-white rounded-lg shadow p-2"
+        buttonClassName="w-8 h-8 rounded bg-gray-200 hover:bg-gray-300 flex items-center justify-center"
+        inputClassName="w-12 text-center text-sm border rounded py-1"
+      />
+    </div>
+  );
+}
+```
+
+### Horizontal Layout
+
+```tsx
+<Zoomer
+  className="flex items-center gap-2"
+  buttonClassName="px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600"
+  inputClassName="w-16 text-center border rounded"
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | - | CSS class names for the container |
+| `style` | `CSSProperties` | - | Inline styles for the container |
+| `buttonClassName` | `string` | - | CSS class names for the +/- buttons |
+| `inputClassName` | `string` | - | CSS class names for the input field |
+
+## Features
+
+- **Editable Input**: Type a zoom percentage directly
+- **Smart Parsing**: Values > 10 treated as percentage, ≤ 10 as multiplier
+  - "150" or "150%" → 150% zoom
+  - "1.5" → 150% zoom
+- **Keyboard Support**: Enter applies value, Escape cancels
+- **Auto-sync**: Input updates when zoom changes externally (e.g., pinch-to-zoom)
+
+## Output Structure
+
+```html
+<div class={className} style={style}>
+  <button class={buttonClassName} aria-label="Zoom in">+</button>
+  <input class={inputClassName} aria-label="Zoom percentage" />
+  <button class={buttonClassName} aria-label="Zoom out">-</button>
+</div>
+```
+
+## Notes
+
+- Uses the `useZoom` hook internally
+- Designed for vertical layout but works horizontally too
+- Renders unstyled by default - apply styles via className props
+
+## Source
+
+<ComponentSource name="zoomer" type="component" />

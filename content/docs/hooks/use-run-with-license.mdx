@@ -1,0 +1,78 @@
+---
+title: useRunWithLicense
+description: Hook for running PDFNet operations with automatic license key handling
+---
+
+import { InstallCommand } from '@/components/docs/install-command';
+import { ComponentSource } from '@/components/docs/component-source';
+
+The `useRunWithLicense` hook provides a wrapper function for executing PDFNet operations with automatic license key handling and cleanup.
+
+## Installation
+
+<InstallCommand name="use-run-with-license" />
+
+## Usage
+
+```tsx
+import { useRunWithLicense } from '@/hooks/use-run-with-license';
+
+function PDFOperations() {
+  const runWithLicense = useRunWithLicense();
+
+  const extractText = async () => {
+    const text = await runWithLicense(async () => {
+      const doc = await PDFNet.PDFDoc.createFromURL('/sample.pdf');
+      const textExtractor = await PDFNet.TextExtractor.create();
+      const page = await doc.getPage(1);
+      textExtractor.begin(page);
+      return textExtractor.getAsText();
+    });
+
+    console.log(text);
+  };
+
+  return <button onClick={extractText}>Extract Text</button>;
+}
+```
+
+### Custom License Key
+
+By default, the hook uses the `NEXT_PUBLIC_PDFTRON_LICENSE` environment variable. You can provide a custom license key:
+
+```tsx
+const runWithLicense = useRunWithLicense('your-license-key');
+```
+
+## Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `licenseKey` | `string` | `NEXT_PUBLIC_PDFTRON_LICENSE` env var | PDFNet license key |
+
+## Return Value
+
+Returns an async function with the signature:
+
+```ts
+<T>(fn: () => Promise<T>) => Promise<T>
+```
+
+The wrapper function:
+- Executes your PDFNet operations with the license key
+- Automatically handles cleanup via `PDFNet.runWithCleanup`
+- Throws if PDFNet is not available
+
+## Prerequisites
+
+This hook requires:
+- `LoadPDFNet` component to be rendered (loads the PDFNet script)
+- `WebViewerProvider` context to be available
+
+## Environment Variables
+
+- `NEXT_PUBLIC_PDFTRON_LICENSE`: Your Apryse/PDFTron license key
+
+## Source
+
+<ComponentSource name="use-run-with-license" type="hook" />

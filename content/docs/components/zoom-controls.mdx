@@ -1,0 +1,67 @@
+---
+title: ZoomControls
+description: Simple zoom controls with +/- buttons and percentage display
+---
+
+import { InstallCommand } from '@/components/docs/install-command';
+import { ComponentSource } from '@/components/docs/component-source';
+
+The `ZoomControls` component provides simple +/- buttons and a percentage display for controlling zoom level.
+
+## Installation
+
+<InstallCommand name="zoom-controls" />
+
+## Usage
+
+```tsx
+import { ZoomControls } from '@/components/zoom-controls';
+
+function Toolbar() {
+  return (
+    <div className="flex items-center gap-4 p-2 border-b">
+      <ZoomControls
+        className="flex items-center gap-2"
+        buttonClassName="px-2 py-1 rounded bg-gray-200 hover:bg-gray-300"
+        displayClassName="min-w-[60px] text-center"
+      />
+    </div>
+  );
+}
+```
+
+### Minimal Example
+
+```tsx
+<ZoomControls className="flex items-center gap-2" />
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | - | CSS class names for the container |
+| `style` | `CSSProperties` | - | Inline styles for the container |
+| `buttonClassName` | `string` | - | CSS class names for the +/- buttons |
+| `displayClassName` | `string` | - | CSS class names for the percentage display |
+
+## Output Structure
+
+```html
+<div class={className} style={style}>
+  <button class={buttonClassName} aria-label="Zoom out">-</button>
+  <span class={displayClassName}>100%</span>
+  <button class={buttonClassName} aria-label="Zoom in">+</button>
+</div>
+```
+
+## Notes
+
+- Uses the `useZoom` hook internally
+- Renders unstyled by default - apply styles via className props
+- Buttons have proper `aria-label` attributes for accessibility
+- Displays zoom as percentage (e.g., "100%", "150%")
+
+## Source
+
+<ComponentSource name="zoom-controls" type="component" />

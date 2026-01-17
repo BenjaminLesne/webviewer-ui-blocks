@@ -1,13 +1,119 @@
 ---
-title: Hello World
-description: Your first document
+title: Getting Started
+description: Install and set up WebViewer UI Blocks in your Next.js project
 ---
 
-Welcome to the docs! You can start writing documents in `/content/docs`.
+import { InstallCommand } from '@/components/docs/install-command';
 
-## What is Next?
+WebViewer UI Blocks is a shadcn-style component registry for building PDF viewers with [Apryse WebViewer](https://docs.apryse.com/documentation/web/). Install only the components you need.
+
+## Prerequisites
+
+1. A Next.js project with shadcn/ui set up
+2. An Apryse WebViewer license (get a [free trial](https://dev.apryse.com/get-key/))
+3. WebViewer files placed in your `public` folder
+
+## Setup
+
+### 1. Install WebViewer
+
+```bash
+npm install @pdftron/webviewer
+```
+
+Copy the WebViewer library files to your public folder:
+
+```bash
+cp -r node_modules/@pdftron/webviewer/public public/webviewer
+```
+
+### 2. Configure Environment Variables
+
+Create or update your `.env.local`:
+
+```env
+NEXT_PUBLIC_PDFTRON_PATH=/webviewer/lib
+NEXT_PUBLIC_PDFTRON_LICENSE=your-license-key
+```
+
+### 3. Set up React Query (for Document component)
+
+If using the `Document` component, wrap your app with `QueryClientProvider`:
+
+```tsx title="app/providers.tsx"
+'use client';
+
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useState } from 'react';
+
+export function Providers({ children }: { children: React.ReactNode }) {
+  const [queryClient] = useState(() => new QueryClient());
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      {children}
+    </QueryClientProvider>
+  );
+}
+```
+
+### 4. Install Components
+
+Install the core components you need:
+
+<InstallCommand name="viewer-canvas" />
+
+This installs `ViewerCanvas` and all its dependencies (`ScrollViewContainer`, `ViewerElement`, `useCoreInstance`, `WebViewerContext`, `webviewer-types`).
+
+## Quick Start
+
+Here's a minimal PDF viewer:
+
+```tsx title="app/viewer/page.tsx"
+'use client';
+
+import { LoadWebviewerCore } from '@/components/load-webviewer-core';
+import { WebViewerProvider } from '@/context/webviewer-context';
+import { ViewerCanvas } from '@/components/viewer-canvas';
+import { Document } from '@/components/document';
+
+export default function ViewerPage() {
+  return (
+    <LoadWebviewerCore>
+      <WebViewerProvider>
+        <ViewerCanvas className="h-screen w-full overflow-auto" />
+        <Document documentPath="/sample.pdf" />
+      </WebViewerProvider>
+    </LoadWebviewerCore>
+  );
+}
+```
+
+## Component Hierarchy
+
+Components must be nested in this order:
+
+```
+LoadWebviewerCore
+└── WebViewerProvider
+    ├── ViewerCanvas (or ScrollViewContainer + ViewerElement)
+    ├── Document
+    └── ZoomControls / Zoomer
+```
+
+For PDFNet operations:
+
+```
+LoadWebviewerCore
+└── LoadPDFNet
+    └── WebViewerProvider
+        └── Components using useRunWithLicense
+```
+
+## What's Next?
 
 <Cards>
-  <Card title="Learn more about Next.js" href="https://nextjs.org/docs" />
-  <Card title="Learn more about Fumadocs" href="https://fumadocs.dev" />
+  <Card title="Context" href="/docs/context/webviewer-context" />
+  <Card title="Hooks" href="/docs/hooks/use-core-instance" />
+  <Card title="Components" href="/docs/components/load-webviewer-core" />
 </Cards>

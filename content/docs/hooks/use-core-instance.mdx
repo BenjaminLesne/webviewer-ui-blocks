@@ -1,0 +1,58 @@
+---
+title: useCoreInstance
+description: Hook for accessing Core and DocumentViewer instances with guaranteed initialization
+---
+
+import { InstallCommand } from '@/components/docs/install-command';
+import { ComponentSource } from '@/components/docs/component-source';
+
+The `useCoreInstance` hook provides safe access to Core and DocumentViewer instances from the WebViewer context, with built-in error handling for cases where the context is not available.
+
+## Installation
+
+<InstallCommand name="use-core-instance" />
+
+## Usage
+
+```tsx
+import { useCoreInstance } from '@/hooks/use-core-instance';
+
+function MyComponent() {
+  const { Core, documentViewer } = useCoreInstance();
+
+  // Core and documentViewer are guaranteed to be non-null here
+  const pageCount = documentViewer.getPageCount();
+
+  return <div>Document has {pageCount} pages</div>;
+}
+```
+
+### Error Handling
+
+The hook throws descriptive errors if used incorrectly:
+
+```tsx
+// This will throw: "useCoreInstance must be used within a WebViewerProvider..."
+function OutsideProvider() {
+  const { Core } = useCoreInstance(); // Error!
+  return null;
+}
+```
+
+## Return Value
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `Core` | `typeof Core` | The WebViewer Core instance (guaranteed non-null) |
+| `documentViewer` | `DocumentViewer` | The DocumentViewer instance (guaranteed non-null) |
+
+## Errors
+
+| Error Message | Cause |
+|---------------|-------|
+| "useCoreInstance must be used within a WebViewerProvider after Core is initialized" | Used outside WebViewerProvider or Core not loaded |
+| "useCoreInstance must be used within a WebViewerProvider after DocumentViewer is initialized" | DocumentViewer not yet created |
+
+## Source
+
+<ComponentSource name="use-core-instance" type="hook" />

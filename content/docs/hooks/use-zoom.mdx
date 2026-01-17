@@ -1,0 +1,75 @@
+---
+title: useZoom
+description: Hook for managing zoom level state and actions
+---
+
+import { InstallCommand } from '@/components/docs/install-command';
+import { ComponentSource } from '@/components/docs/component-source';
+
+The `useZoom` hook provides reactive zoom level state and actions for the DocumentViewer. It uses `useSyncExternalStore` to efficiently subscribe to zoom changes.
+
+## Installation
+
+<InstallCommand name="use-zoom" />
+
+## Usage
+
+```tsx
+import { useZoom } from '@/hooks/use-zoom';
+
+function ZoomUI() {
+  const { zoomLevel, zoomIn, zoomOut, zoomTo } = useZoom();
+
+  return (
+    <div>
+      <button onClick={zoomOut}>-</button>
+      <span>{Math.round(zoomLevel * 100)}%</span>
+      <button onClick={zoomIn}>+</button>
+      <button onClick={() => zoomTo(1)}>Reset</button>
+    </div>
+  );
+}
+```
+
+### Custom Zoom Levels
+
+```tsx
+function FitToPage() {
+  const { zoomTo } = useZoom();
+
+  return (
+    <div>
+      <button onClick={() => zoomTo(0.5)}>50%</button>
+      <button onClick={() => zoomTo(1)}>100%</button>
+      <button onClick={() => zoomTo(2)}>200%</button>
+    </div>
+  );
+}
+```
+
+## Return Value
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `zoomLevel` | `number` | Current zoom level (1 = 100%) |
+| `zoomIn` | `() => void` | Increase zoom by 25% |
+| `zoomOut` | `() => void` | Decrease zoom by 25% |
+| `zoomTo` | `(level: number) => void` | Set zoom to a specific level |
+
+## Constants
+
+| Constant | Value | Description |
+|----------|-------|-------------|
+| `ZOOM_STEP` | `0.25` | Increment/decrement for zoomIn/zoomOut |
+| `MIN_ZOOM` | `0.1` | Minimum allowed zoom (10%) |
+| `MAX_ZOOM` | `10` | Maximum allowed zoom (1000%) |
+
+## Features
+
+- **Reactive**: UI automatically updates when zoom changes (e.g., from pinch-to-zoom)
+- **Clamped**: Values are automatically clamped between MIN_ZOOM and MAX_ZOOM
+- **SSR-safe**: Returns default zoom of 1 during server-side rendering
+
+## Source
+
+<ComponentSource name="use-zoom" type="hook" />

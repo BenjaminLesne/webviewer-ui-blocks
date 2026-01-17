@@ -1,0 +1,63 @@
+---
+title: ViewerCanvas
+description: Composite component for rendering PDF documents with scroll support
+---
+
+import { InstallCommand } from '@/components/docs/install-command';
+import { ComponentSource } from '@/components/docs/component-source';
+
+The `ViewerCanvas` component is the main component for displaying PDF documents. It combines `ScrollViewContainer` and `ViewerElement` into a single, easy-to-use component.
+
+## Installation
+
+<InstallCommand name="viewer-canvas" />
+
+## Usage
+
+```tsx
+import { LoadWebviewerCore } from '@/components/load-webviewer-core';
+import { WebViewerProvider } from '@/context/webviewer-context';
+import { ViewerCanvas } from '@/components/viewer-canvas';
+import { Document } from '@/components/document';
+
+export function PDFViewer() {
+  return (
+    <LoadWebviewerCore>
+      <WebViewerProvider>
+        <ViewerCanvas className="h-screen w-full overflow-auto" />
+        <Document documentPath="/sample.pdf" />
+      </WebViewerProvider>
+    </LoadWebviewerCore>
+  );
+}
+```
+
+### Styling the Inner Viewer
+
+```tsx
+<ViewerCanvas
+  className="h-screen overflow-auto bg-gray-100"
+  style={{ border: '1px solid #ccc' }}
+  viewerClassName="min-h-full"
+  viewerStyle={{ padding: '20px' }}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | - | CSS class names for the outer scroll container |
+| `style` | `CSSProperties` | - | Inline styles for the outer scroll container |
+| `viewerClassName` | `string` | - | CSS class names for the inner viewer element |
+| `viewerStyle` | `CSSProperties` | - | Inline styles for the inner viewer element |
+
+## Notes
+
+- Must be used within a `WebViewerProvider` context
+- Combines `ScrollViewContainer` (outer) and `ViewerElement` (inner)
+- For advanced layouts, use `ScrollViewContainer` and `ViewerElement` separately
+
+## Source
+
+<ComponentSource name="viewer-canvas" type="component" />
