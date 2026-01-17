@@ -17,7 +17,11 @@
     "incremental": true,
     "paths": {
       "@/*": ["./*"],
-      "fumadocs-mdx:collections/*": [".source/*"]
+      "@/lib/webviewer-types": ["./registry/lib/webviewer-types.ts"],
+      "@/context/webviewer-context": ["./registry/context/webviewer-context.tsx"],
+      "@/hooks/*": ["./registry/hooks/*"],
+      "fumadocs-mdx:collections/*": [".source/*"],
+      "@pdftron/webviewer": ["./types/webviewer.d.ts"]
     },
     "plugins": [
       {
@@ -27,6 +31,7 @@
   },
   "include": [
     "next-env.d.ts",
+    "types/**/*.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
