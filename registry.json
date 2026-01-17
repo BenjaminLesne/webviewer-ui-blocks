@@ -1,0 +1,162 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "webviewer-ui-blocks",
+  "homepage": "https://webviewer-ui-blocks.vercel.app",
+  "items": [
+    {
+      "name": "webviewer-types",
+      "type": "registry:lib",
+      "description": "TypeScript types for WebViewer Core and DocumentViewer instances",
+      "files": [
+        {
+          "path": "registry/lib/webviewer-types.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "webviewer-context",
+      "type": "registry:lib",
+      "description": "React context for WebViewer Core and DocumentViewer instances",
+      "dependencies": ["@pdftron/webviewer"],
+      "registryDependencies": ["webviewer-types"],
+      "files": [
+        {
+          "path": "registry/context/webviewer-context.tsx",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "use-core-instance",
+      "type": "registry:hook",
+      "description": "Hook for accessing Core and DocumentViewer instances",
+      "registryDependencies": ["webviewer-context"],
+      "files": [
+        {
+          "path": "registry/hooks/use-core-instance.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "name": "use-run-with-license",
+      "type": "registry:hook",
+      "description": "Hook for wrapping PDFNet operations with license",
+      "registryDependencies": ["use-core-instance"],
+      "files": [
+        {
+          "path": "registry/hooks/use-run-with-license.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "name": "use-zoom",
+      "type": "registry:hook",
+      "description": "Hook for zoom level state and actions",
+      "registryDependencies": ["use-core-instance"],
+      "files": [
+        {
+          "path": "registry/hooks/use-zoom.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "name": "load-webviewer-core",
+      "type": "registry:component",
+      "description": "Component for dynamically loading WebViewer Core script",
+      "files": [
+        {
+          "path": "registry/components/load-webviewer-core.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "load-pdfnet",
+      "type": "registry:component",
+      "description": "Component for dynamically loading PDFNet script",
+      "files": [
+        {
+          "path": "registry/components/load-pdfnet.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "viewer-element",
+      "type": "registry:component",
+      "description": "Component that sets the documentViewer viewer element",
+      "registryDependencies": ["use-core-instance"],
+      "files": [
+        {
+          "path": "registry/components/viewer-element.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "scroll-view-container",
+      "type": "registry:component",
+      "description": "Component that sets the documentViewer scroll view element",
+      "registryDependencies": ["use-core-instance"],
+      "files": [
+        {
+          "path": "registry/components/scroll-view-container.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "viewer-canvas",
+      "type": "registry:component",
+      "description": "Composite component combining ScrollViewContainer and ViewerElement",
+      "registryDependencies": ["scroll-view-container", "viewer-element"],
+      "files": [
+        {
+          "path": "registry/components/viewer-canvas.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "document",
+      "type": "registry:component",
+      "description": "Component for loading PDF documents into the viewer",
+      "dependencies": ["@tanstack/react-query"],
+      "registryDependencies": ["use-core-instance"],
+      "files": [
+        {
+          "path": "registry/components/document.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "zoom-controls",
+      "type": "registry:component",
+      "description": "Simple zoom controls with +/- buttons and percentage display",
+      "registryDependencies": ["use-zoom"],
+      "files": [
+        {
+          "path": "registry/components/zoom-controls.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "zoomer",
+      "type": "registry:component",
+      "description": "Modern vertical zoom UI with editable input",
+      "registryDependencies": ["use-zoom"],
+      "files": [
+        {
+          "path": "registry/components/zoomer.tsx",
+          "type": "registry:component"
+        }
+      ]
+    }
+  ]
+}
