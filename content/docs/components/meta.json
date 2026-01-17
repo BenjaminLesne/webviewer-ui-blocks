@@ -1,0 +1,14 @@
+{
+  "title": "Components",
+  "description": "React components for building WebViewer UIs",
+  "pages": [
+    "load-webviewer-core",
+    "load-pdfnet",
+    "viewer-element",
+    "scroll-view-container",
+    "viewer-canvas",
+    "document",
+    "zoom-controls",
+    "zoomer"
+  ]
+}

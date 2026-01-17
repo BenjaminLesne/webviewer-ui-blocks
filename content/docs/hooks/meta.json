@@ -1,0 +1,9 @@
+{
+  "title": "Hooks",
+  "description": "React hooks for WebViewer functionality",
+  "pages": [
+    "use-core-instance",
+    "use-run-with-license",
+    "use-zoom"
+  ]
+}
