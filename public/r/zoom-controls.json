@@ -1,6 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "zoom-controls",
+  "type": "registry:component",
   "description": "Simple zoom controls with +/- buttons and percentage display",
   "registryDependencies": [
     "https://webviewer-ui-blocks.vercel.app/r/use-zoom.json"
@@ -11,6 +12,5 @@
       "content": "\"use client\";\n\nimport type { CSSProperties } from \"react\";\nimport { useZoom } from \"@/hooks/use-zoom\";\n\nexport type ZoomControlsProps = {\n  /**\n   * Additional CSS class names for the container.\n   */\n  className?: string;\n  /**\n   * Inline styles for the container.\n   */\n  style?: CSSProperties;\n  /**\n   * CSS class names for the zoom buttons.\n   */\n  buttonClassName?: string;\n  /**\n   * CSS class names for the percentage display.\n   */\n  displayClassName?: string;\n};\n\n/**\n * Simple zoom controls with +/- buttons and percentage display.\n *\n * Uses the useZoom hook to get and set the zoom level.\n *\n * @example\n * ```tsx\n * <ZoomControls className=\"flex items-center gap-2\" />\n * ```\n */\nexport const ZoomControls = ({\n  className,\n  style,\n  buttonClassName,\n  displayClassName,\n}: ZoomControlsProps) => {\n  const { zoomLevel, zoomIn, zoomOut } = useZoom();\n\n  const percentageDisplay = `${Math.round(zoomLevel * 100)}%`;\n\n  return (\n    <div className={className} style={style}>\n      <button\n        type=\"button\"\n        onClick={zoomOut}\n        className={buttonClassName}\n        aria-label=\"Zoom out\"\n      >\n        -\n      </button>\n      <span className={displayClassName}>{percentageDisplay}</span>\n      <button\n        type=\"button\"\n        onClick={zoomIn}\n        className={buttonClassName}\n        aria-label=\"Zoom in\"\n      >\n        +\n      </button>\n    </div>\n  );\n};\n",
       "type": "registry:component"
     }
-  ],
-  "type": "registry:component"
+  ]
 }

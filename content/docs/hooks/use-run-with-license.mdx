@@ -36,32 +36,17 @@ function PDFOperations() {
 }
 ```
 
-### Custom License Key
-
-By default, the hook uses the `NEXT_PUBLIC_PDFTRON_LICENSE` environment variable. You can provide a custom license key:
-
-```tsx
-const runWithLicense = useRunWithLicense('your-license-key');
-```
-
-## Parameters
-
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `licenseKey` | `string` | `NEXT_PUBLIC_PDFTRON_LICENSE` env var | PDFNet license key |
-
 ## Return Value
 
 Returns an async function with the signature:
 
 ```ts
-<T>(fn: () => Promise<T>) => Promise<T>
+<T>(operation: () => Promise<T>) => Promise<T>
 ```
 
 The wrapper function:
 - Executes your PDFNet operations with the license key
 - Automatically handles cleanup via `PDFNet.runWithCleanup`
-- Throws if PDFNet is not available
 
 ## Prerequisites
 
@@ -71,7 +56,7 @@ This hook requires:
 
 ## Environment Variables
 
-- `NEXT_PUBLIC_PDFTRON_LICENSE`: Your Apryse/PDFTron license key
+- `NEXT_PUBLIC_APRYSE_LICENSE_WEB`: Your Apryse license key
 
 ## Source
 

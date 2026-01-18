@@ -1,6 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "document",
+  "type": "registry:component",
   "description": "Component for loading PDF documents into the viewer",
   "registryDependencies": [
     "https://webviewer-ui-blocks.vercel.app/r/use-core-instance.json"
@@ -11,6 +12,5 @@
       "content": "\"use client\";\n\nimport { useEffect, useRef } from \"react\";\nimport { useCoreInstance } from \"@/hooks/use-core-instance\";\n\nexport type DocumentProps = {\n  /**\n   * Path to the PDF document to load.\n   * Can be a relative path (e.g., \"/documents/sample.pdf\") or\n   * an absolute URL (e.g., \"https://example.com/document.pdf\").\n   */\n  documentPath: string;\n  /**\n   * Callback fired when the document has been successfully loaded.\n   */\n  onLoad?: () => void;\n  /**\n   * Callback fired when document loading fails.\n   */\n  onError?: (error: Error) => void;\n};\n\n/**\n * Component for loading PDF documents into the viewer.\n *\n * Must be used as a child of ViewerCanvas - the canvas must be\n * initialized before documents can be loaded.\n *\n * Must be used within a WebViewerProvider context.\n */\nexport const Document = ({ documentPath, onLoad, onError }: DocumentProps) => {\n  const { documentViewer } = useCoreInstance();\n  const previousPathRef = useRef<string | null>(null);\n\n  // Set up event listeners for onLoad/onError callbacks\n  useEffect(() => {\n    if (!onLoad && !onError) return;\n\n    const handleDocumentLoaded = () => onLoad?.();\n\n    documentViewer.addEventListener(\"documentLoaded\", handleDocumentLoaded);\n\n    return () => {\n      documentViewer.removeEventListener(\"documentLoaded\", handleDocumentLoaded);\n    };\n  }, [documentViewer, onLoad, onError]);\n\n  // Load document when path changes\n  useEffect(() => {\n    if (documentPath && documentPath !== previousPathRef.current) {\n      previousPathRef.current = documentPath;\n      void documentViewer.loadDocument(documentPath);\n    }\n  }, [documentPath, documentViewer]);\n\n  // This is a non-visual component\n  return null;\n};\n",
       "type": "registry:component"
     }
-  ],
-  "type": "registry:component"
+  ]
 }

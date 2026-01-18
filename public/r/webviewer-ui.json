@@ -1,6 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "webviewer-ui",
+  "type": "registry:component",
   "description": "Complete viewer UI with toolbar and zoom controls",
   "registryDependencies": [
     "https://webviewer-ui-blocks.vercel.app/r/zoom-controls.json"
@@ -11,6 +12,5 @@
       "content": "\"use client\";\n\nimport type { CSSProperties, PropsWithChildren } from \"react\";\nimport { ZoomControls } from \"@/components/zoom-controls\";\n\nexport type WebViewerUIProps = PropsWithChildren<{\n  /**\n   * Title displayed in the toolbar.\n   */\n  title?: string;\n  /**\n   * Additional CSS class names for the container.\n   */\n  className?: string;\n  /**\n   * Inline styles for the container.\n   */\n  style?: CSSProperties;\n}>;\n\n/**\n * Complete viewer UI with toolbar.\n * Wraps children (typically ViewerCanvas) with a toolbar containing zoom controls.\n *\n * @example\n * ```tsx\n * <WebViewerUI title=\"My Document\">\n *   <ViewerCanvas />\n *   <Document documentPath=\"/sample.pdf\" />\n * </WebViewerUI>\n * ```\n */\nexport const WebViewerUI = ({\n  children,\n  title = \"Document\",\n  className,\n  style,\n}: WebViewerUIProps) => {\n  return (\n    <div className={className} style={style}>\n      {/* Toolbar */}\n      <div className=\"flex items-center justify-between border-b bg-secondary/30 px-4 py-2\">\n        <div className=\"text-sm font-medium\">{title}</div>\n        <ZoomControls\n          className=\"flex items-center gap-2\"\n          buttonClassName=\"w-8 h-8 rounded bg-secondary hover:bg-secondary/80 font-medium transition-colors\"\n          displayClassName=\"min-w-[50px] text-center text-sm font-medium\"\n        />\n      </div>\n\n      {/* Main content area */}\n      <div className=\"flex-1\">{children}</div>\n    </div>\n  );\n};\n",
       "type": "registry:component"
     }
-  ],
-  "type": "registry:component"
+  ]
 }

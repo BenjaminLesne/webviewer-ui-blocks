@@ -1,6 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "webviewer-types",
+  "type": "registry:lib",
   "description": "TypeScript types for WebViewer Core and DocumentViewer instances",
   "files": [
     {
@@ -8,6 +9,5 @@
       "content": "import type { Core } from \"@pdftron/webviewer\";\n\nexport type DocumentViewer = (typeof Core)[\"documentViewer\"];\n\nexport type WebViewerContextValue = {\n  Core: typeof Core | null;\n  documentViewer: DocumentViewer | null;\n};\n",
       "type": "registry:lib"
     }
-  ],
-  "type": "registry:lib"
+  ]
 }

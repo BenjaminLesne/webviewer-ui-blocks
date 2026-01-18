@@ -1,6 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "viewer-canvas",
+  "type": "registry:component",
   "description": "Composite component combining ScrollViewContainer and ViewerElement",
   "registryDependencies": [
     "https://webviewer-ui-blocks.vercel.app/r/scroll-view-container.json",
@@ -12,6 +13,5 @@
       "content": "\"use client\";\n\nimport type { CSSProperties, PropsWithChildren } from \"react\";\nimport { ScrollViewContainer } from \"@/components/scroll-view-container\";\nimport { ViewerElement } from \"@/components/viewer-element\";\n\nexport type ViewerCanvasProps = PropsWithChildren<{\n  /**\n   * Additional CSS class names for the scroll container.\n   */\n  className?: string;\n  /**\n   * Inline styles for the scroll container.\n   */\n  style?: CSSProperties;\n}>;\n\n/**\n * Composite component that combines ScrollViewContainer and ViewerElement.\n * This is the main canvas where PDF documents are rendered with scroll support.\n *\n * @example\n * ```tsx\n * <ViewerCanvas className=\"h-[500px] overflow-auto\">\n *   <Document documentPath=\"/sample.pdf\" />\n * </ViewerCanvas>\n * ```\n */\nexport const ViewerCanvas = ({\n  children,\n  className,\n  style,\n}: ViewerCanvasProps) => {\n  return (\n    <ScrollViewContainer className={className} style={style}>\n      <ViewerElement>{children}</ViewerElement>\n    </ScrollViewContainer>\n  );\n};\n",
       "type": "registry:component"
     }
-  ],
-  "type": "registry:component"
+  ]
 }
