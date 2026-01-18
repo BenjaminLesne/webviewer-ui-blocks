@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "scroll-view-container",
+  "type": "registry:component",
+  "description": "Component that sets the documentViewer scroll view element",
+  "registryDependencies": [
+    "use-core-instance"
+  ],
+  "files": [
+    {
+      "path": "registry/components/scroll-view-container.tsx",
+      "content": "\"use client\";\n\nimport {\n  useEffect,\n  useRef,\n  type CSSProperties,\n  type PropsWithChildren,\n} from \"react\";\nimport { useCoreInstance } from \"@/hooks/use-core-instance\";\n\nexport type ScrollViewContainerProps = PropsWithChildren<{\n  /**\n   * Additional CSS class names for the scroll container.\n   */\n  className?: string;\n  /**\n   * Inline styles for the scroll container.\n   */\n  style?: CSSProperties;\n}>;\n\n/**\n * Component that sets the documentViewer's scroll view element on mount.\n * This container handles scrolling for the PDF viewer.\n */\nexport const ScrollViewContainer = ({\n  children,\n  className,\n  style,\n}: ScrollViewContainerProps) => {\n  const { documentViewer } = useCoreInstance();\n  const ref = useRef<HTMLDivElement>(null);\n\n  useEffect(() => {\n    if (ref.current) {\n      documentViewer.setScrollViewElement(ref.current);\n    }\n\n    return () => {\n      documentViewer.setScrollViewElement(null);\n    };\n  }, [documentViewer]);\n\n  return (\n    <div ref={ref} className={className} style={style}>\n      {children}\n    </div>\n  );\n};\n",
+      "type": "registry:component"
+    }
+  ]
+}

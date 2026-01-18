@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-core-instance",
+  "type": "registry:hook",
+  "description": "Hook for accessing Core and DocumentViewer instances",
+  "registryDependencies": [
+    "webviewer-context"
+  ],
+  "files": [
+    {
+      "path": "registry/hooks/use-core-instance.ts",
+      "content": "\"use client\";\n\nimport { useWebViewerContext } from \"@/context/webviewer-context\";\n\n/**\n * Hook for accessing Core and DocumentViewer instances from the WebViewer context.\n *\n * @throws Error if used outside of WebViewerProvider or if instances are not initialized\n * @returns Object containing Core and documentViewer instances (guaranteed non-null)\n */\nexport const useCoreInstance = () => {\n  const { Core, documentViewer } = useWebViewerContext();\n\n  if (!Core) {\n    throw new Error(\n      \"useCoreInstance must be used within a WebViewerProvider after Core is initialized\"\n    );\n  }\n\n  if (!documentViewer) {\n    throw new Error(\n      \"useCoreInstance must be used within a WebViewerProvider after DocumentViewer is initialized\"\n    );\n  }\n\n  return { Core, documentViewer };\n};\n",
+      "type": "registry:hook"
+    }
+  ]
+}

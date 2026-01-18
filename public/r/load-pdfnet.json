@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "load-pdfnet",
+  "type": "registry:component",
+  "description": "Component for dynamically loading PDFNet script",
+  "files": [
+    {
+      "path": "registry/components/load-pdfnet.tsx",
+      "content": "\"use client\";\n\nimport { useState, useEffect, type PropsWithChildren, type ReactNode } from \"react\";\nimport Script from \"next/script\";\n\n// Track if PDFNet script has been loaded globally to avoid duplicate loading\nlet pdfnetScriptLoaded = false;\n\nexport type LoadPDFNetProps = PropsWithChildren<{\n  /**\n   * Path to the PDFTron/Apryse WebViewer files.\n   * Defaults to NEXT_PUBLIC_PDFTRON_PATH environment variable or \"/webviewer/lib\".\n   */\n  pdftronPath?: string;\n  /**\n   * Custom loading UI to display while the script is loading.\n   * Defaults to a simple \"Loading PDFNet...\" div.\n   */\n  loadingUI?: ReactNode;\n  /**\n   * Custom error UI to display if the script fails to load.\n   * Defaults to a simple \"Failed to load PDFNet script\" div.\n   */\n  errorUI?: ReactNode;\n  /**\n   * Callback when the script loads successfully.\n   */\n  onLoad?: () => void;\n  /**\n   * Callback when the script fails to load.\n   */\n  onError?: (error: Error) => void;\n}>;\n\nexport const LoadPDFNet = ({\n  children,\n  pdftronPath = process.env.NEXT_PUBLIC_PDFTRON_PATH || \"/webviewer/lib\",\n  loadingUI = <div>Loading PDFNet...</div>,\n  errorUI = <div>Failed to load PDFNet script</div>,\n  onLoad,\n  onError,\n}: LoadPDFNetProps) => {\n  const [ready, setReady] = useState(() => pdfnetScriptLoaded);\n  const [error, setError] = useState(false);\n\n  useEffect(() => {\n    if (pdfnetScriptLoaded) {\n      setReady(true);\n    }\n  }, []);\n\n  if (error) {\n    return <>{errorUI}</>;\n  }\n\n  return (\n    <>\n      <Script\n        src={`${pdftronPath}/core/pdf/PDFNet.js`}\n        strategy=\"afterInteractive\"\n        onLoad={() => {\n          pdfnetScriptLoaded = true;\n          setReady(true);\n          onLoad?.();\n        }}\n        onError={() => {\n          setError(true);\n          onError?.(new Error(\"Failed to load PDFNet script\"));\n        }}\n      />\n      {ready ? children : loadingUI}\n    </>\n  );\n};\n",
+      "type": "registry:component"
+    }
+  ]
+}
