@@ -25,7 +25,9 @@
       "@/components/viewer-canvas": ["./registry/components/viewer-canvas.tsx"],
       "@/components/document": ["./registry/components/document.tsx"],
       "@/components/zoom-controls": ["./registry/components/zoom-controls.tsx"],
-      "@/components/zoomer": ["./registry/components/zoomer.tsx"],
+            "@/components/load-webviewer-core": ["./registry/components/load-webviewer-core.tsx"],
+      "@/components/load-pdfnet": ["./registry/components/load-pdfnet.tsx"],
+      "@/components/webviewer-ui": ["./registry/components/webviewer-ui.tsx"],
       "fumadocs-mdx:collections/*": [".source/*"],
       "@pdftron/webviewer": ["./types/webviewer.d.ts"]
     },

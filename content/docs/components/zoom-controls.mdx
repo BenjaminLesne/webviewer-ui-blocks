@@ -5,8 +5,20 @@ description: Simple zoom controls with +/- buttons and percentage display
 
 import { InstallCommand } from '@/components/docs/install-command';
 import { ComponentSource } from '@/components/docs/component-source';
+import { ComponentPreview } from '@/components/docs/component-preview';
+import { ZoomControls } from '@/components/zoom-controls';
 
 The `ZoomControls` component provides simple +/- buttons and a percentage display for controlling zoom level.
+
+## Preview
+
+<ComponentPreview description="Click the buttons to adjust zoom level">
+  <ZoomControls
+    className="flex items-center gap-2"
+    buttonClassName="w-8 h-8 rounded bg-fd-secondary hover:bg-fd-secondary/80 text-fd-secondary-foreground font-medium transition-colors"
+    displayClassName="min-w-[50px] text-center text-sm font-medium text-fd-foreground"
+  />
+</ComponentPreview>
 
 ## Installation
 

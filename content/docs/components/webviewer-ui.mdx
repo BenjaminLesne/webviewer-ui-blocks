@@ -1,0 +1,74 @@
+---
+title: WebViewerUI
+description: Complete viewer UI with toolbar and zoom controls
+---
+
+import { InstallCommand } from '@/components/docs/install-command';
+import { ComponentSource } from '@/components/docs/component-source';
+
+The `WebViewerUI` component provides a complete viewer interface with a toolbar containing zoom controls. It wraps the `ViewerCanvas` component which contains the `Document`.
+
+## Installation
+
+<InstallCommand name="webviewer-ui" />
+
+## Usage
+
+```tsx
+import { LoadWebviewerCore } from '@/components/load-webviewer-core';
+import { LoadPDFNet } from '@/components/load-pdfnet';
+import { WebViewerProvider } from '@/context/webviewer-context';
+import { WebViewerUI } from '@/components/webviewer-ui';
+import { ViewerCanvas } from '@/components/viewer-canvas';
+import { Document } from '@/components/document';
+
+export function PDFViewer() {
+  return (
+    <LoadWebviewerCore>
+      <LoadPDFNet>
+        <WebViewerProvider>
+          <WebViewerUI title="My Document">
+            <ViewerCanvas className="h-100 overflow-auto">
+              <Document documentPath="/sample.pdf" />
+            </ViewerCanvas>
+          </WebViewerUI>
+        </WebViewerProvider>
+      </LoadPDFNet>
+    </LoadWebviewerCore>
+  );
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `"Document"` | Title displayed in the toolbar |
+| `className` | `string` | - | CSS class names for the container |
+| `style` | `CSSProperties` | - | Inline styles for the container |
+| `children` | `ReactNode` | - | Content (typically ViewerCanvas and Document) |
+
+## Output Structure
+
+```html
+<div class={className} style={style}>
+  <!-- Toolbar -->
+  <div class="flex items-center justify-between border-b ...">
+    <div class="text-sm font-medium">{title}</div>
+    <ZoomControls ... />
+  </div>
+
+  <!-- Main content area -->
+  <div class="flex-1">{children}</div>
+</div>
+```
+
+## Notes
+
+- Must be used within a `WebViewerProvider` context
+- Contains `ZoomControls` in the toolbar
+- Children are rendered in the main content area below the toolbar
+
+## Source
+
+<ComponentSource name="webviewer-ui" type="component" />

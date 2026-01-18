@@ -146,13 +146,13 @@
       ]
     },
     {
-      "name": "zoomer",
+      "name": "webviewer-ui",
       "type": "registry:component",
-      "description": "Modern vertical zoom UI with editable input",
-      "registryDependencies": ["https://webviewer-ui-blocks.vercel.app/r/use-zoom.json"],
+      "description": "Complete viewer UI with toolbar and zoom controls",
+      "registryDependencies": ["https://webviewer-ui-blocks.vercel.app/r/zoom-controls.json"],
       "files": [
         {
-          "path": "registry/components/zoomer.tsx",
+          "path": "registry/components/webviewer-ui.tsx",
           "type": "registry:component"
         }
       ]

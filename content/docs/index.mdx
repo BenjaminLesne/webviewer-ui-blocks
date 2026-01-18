@@ -36,28 +36,7 @@ NEXT_PUBLIC_PDFTRON_PATH=/webviewer/lib
 NEXT_PUBLIC_PDFTRON_LICENSE=your-license-key
 ```
 
-### 3. Set up React Query (for Document component)
-
-If using the `Document` component, wrap your app with `QueryClientProvider`:
-
-```tsx title="app/providers.tsx"
-'use client';
-
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useState } from 'react';
-
-export function Providers({ children }: { children: React.ReactNode }) {
-  const [queryClient] = useState(() => new QueryClient());
-
-  return (
-    <QueryClientProvider client={queryClient}>
-      {children}
-    </QueryClientProvider>
-  );
-}
-```
-
-### 4. Install Components
+### 3. Install Components
 
 Install the core components you need:
 
@@ -95,19 +74,11 @@ Components must be nested in this order:
 
 ```
 LoadWebviewerCore
-└── WebViewerProvider
-    ├── ViewerCanvas (or ScrollViewContainer + ViewerElement)
-    ├── Document
-    └── ZoomControls / Zoomer
-```
-
-For PDFNet operations:
-
-```
-LoadWebviewerCore
 └── LoadPDFNet
     └── WebViewerProvider
-        └── Components using useRunWithLicense
+        └── WebViewerUI
+            └── ViewerCanvas
+                └── Document
 ```
 
 ## What's Next?

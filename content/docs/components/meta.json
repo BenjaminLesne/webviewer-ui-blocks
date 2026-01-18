@@ -9,6 +9,6 @@
     "viewer-canvas",
     "document",
     "zoom-controls",
-    "zoomer"
+    "webviewer-ui"
   ]
 }

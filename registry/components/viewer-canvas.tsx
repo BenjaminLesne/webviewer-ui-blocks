@@ -1,10 +1,10 @@
 "use client";
 
-import type { CSSProperties } from "react";
+import type { CSSProperties, PropsWithChildren } from "react";
 import { ScrollViewContainer } from "@/components/scroll-view-container";
 import { ViewerElement } from "@/components/viewer-element";
 
-export type ViewerCanvasProps = {
+export type ViewerCanvasProps = PropsWithChildren<{
   /**
    * Additional CSS class names for the scroll container.
    */
@@ -13,29 +13,27 @@ export type ViewerCanvasProps = {
    * Inline styles for the scroll container.
    */
   style?: CSSProperties;
-  /**
-   * Additional CSS class names for the inner viewer element.
-   */
-  viewerClassName?: string;
-  /**
-   * Inline styles for the inner viewer element.
-   */
-  viewerStyle?: CSSProperties;
-};
+}>;
 
 /**
  * Composite component that combines ScrollViewContainer and ViewerElement.
  * This is the main canvas where PDF documents are rendered with scroll support.
+ *
+ * @example
+ * ```tsx
+ * <ViewerCanvas className="h-[500px] overflow-auto">
+ *   <Document documentPath="/sample.pdf" />
+ * </ViewerCanvas>
+ * ```
  */
 export const ViewerCanvas = ({
+  children,
   className,
   style,
-  viewerClassName,
-  viewerStyle,
 }: ViewerCanvasProps) => {
   return (
     <ScrollViewContainer className={className} style={style}>
-      <ViewerElement className={viewerClassName} style={viewerStyle} />
+      <ViewerElement>{children}</ViewerElement>
     </ScrollViewContainer>
   );
 };

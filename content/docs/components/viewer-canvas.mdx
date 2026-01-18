@@ -16,6 +16,7 @@ The `ViewerCanvas` component is the main component for displaying PDF documents.
 
 ```tsx
 import { LoadWebviewerCore } from '@/components/load-webviewer-core';
+import { LoadPDFNet } from '@/components/load-pdfnet';
 import { WebViewerProvider } from '@/context/webviewer-context';
 import { ViewerCanvas } from '@/components/viewer-canvas';
 import { Document } from '@/components/document';
@@ -23,39 +24,31 @@ import { Document } from '@/components/document';
 export function PDFViewer() {
   return (
     <LoadWebviewerCore>
-      <WebViewerProvider>
-        <ViewerCanvas className="h-screen w-full overflow-auto" />
-        <Document documentPath="/sample.pdf" />
-      </WebViewerProvider>
+      <LoadPDFNet>
+        <WebViewerProvider>
+          <ViewerCanvas className="h-screen w-full overflow-auto">
+            <Document documentPath="/sample.pdf" />
+          </ViewerCanvas>
+        </WebViewerProvider>
+      </LoadPDFNet>
     </LoadWebviewerCore>
   );
 }
-```
-
-### Styling the Inner Viewer
-
-```tsx
-<ViewerCanvas
-  className="h-screen overflow-auto bg-gray-100"
-  style={{ border: '1px solid #ccc' }}
-  viewerClassName="min-h-full"
-  viewerStyle={{ padding: '20px' }}
-/>
 ```
 
 ## Props
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `className` | `string` | - | CSS class names for the outer scroll container |
-| `style` | `CSSProperties` | - | Inline styles for the outer scroll container |
-| `viewerClassName` | `string` | - | CSS class names for the inner viewer element |
-| `viewerStyle` | `CSSProperties` | - | Inline styles for the inner viewer element |
+| `className` | `string` | - | CSS class names for the scroll container |
+| `style` | `CSSProperties` | - | Inline styles for the scroll container |
+| `children` | `ReactNode` | - | Content (typically Document component) |
 
 ## Notes
 
 - Must be used within a `WebViewerProvider` context
 - Combines `ScrollViewContainer` (outer) and `ViewerElement` (inner)
+- The `Document` component should be passed as a child
 - For advanced layouts, use `ScrollViewContainer` and `ViewerElement` separately
 
 ## Source

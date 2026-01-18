@@ -1,0 +1,85 @@
+---
+title: Live Demo
+description: Interactive demo showing all components working together
+---
+
+import { LoadWebviewerCore } from '@/components/load-webviewer-core';
+import { LoadPDFNet } from '@/components/load-pdfnet';
+import { WebViewerProvider } from '@/context/webviewer-context';
+import { WebViewerUI } from '@/components/webviewer-ui';
+import { ViewerCanvas } from '@/components/viewer-canvas';
+import { Document } from '@/components/document';
+
+This is a fully functional PDF viewer using WebViewer UI Blocks with the Apryse SDK. All components are interactive and work together.
+
+## Full Viewer Layout
+
+<div className="not-prose my-6 rounded-lg border overflow-hidden">
+  <LoadWebviewerCore
+    loadingUI={
+      <div className="h-100 flex items-center justify-center text-fd-muted-foreground">
+        Loading WebViewer...
+      </div>
+    }
+  >
+    <LoadPDFNet
+      loadingUI={
+        <div className="h-100 flex items-center justify-center text-fd-muted-foreground">
+          Loading PDFNet...
+        </div>
+      }
+    >
+      <WebViewerProvider>
+        <WebViewerUI title="W-9 Form">
+          <ViewerCanvas className="h-100 overflow-auto">
+            <Document documentPath="/forms/w9.pdf" />
+          </ViewerCanvas>
+        </WebViewerUI>
+      </WebViewerProvider>
+    </LoadPDFNet>
+  </LoadWebviewerCore>
+</div>
+
+<div className="text-sm text-fd-muted-foreground text-center mt-2">
+  Try clicking the zoom buttons - both the toolbar and sidebar controls stay in sync!
+</div>
+
+## How It Works
+
+The components share zoom state through React context. When you click `+` or `-` on either control:
+
+1. The component calls `zoomTo()` from the `useZoom` hook
+2. The hook updates the `documentViewer` zoom level
+3. All subscribed components receive the `zoomUpdated` event
+4. Each component re-renders with the new zoom level
+
+This architecture means you can place zoom controls anywhere in your app and they'll automatically stay synchronized.
+
+## Code
+
+Here's the code for the demo above:
+
+```tsx
+import { LoadWebviewerCore } from '@/components/load-webviewer-core';
+import { LoadPDFNet } from '@/components/load-pdfnet';
+import { WebViewerProvider } from '@/context/webviewer-context';
+import { WebViewerUI } from '@/components/webviewer-ui';
+import { ViewerCanvas } from '@/components/viewer-canvas';
+import { Document } from '@/components/document';
+
+export function PDFViewer() {
+  return (
+    <LoadWebviewerCore>
+      <LoadPDFNet>
+        <WebViewerProvider>
+          <WebViewerUI title="W-9 Form">
+            <ViewerCanvas className="h-100 overflow-auto">
+              <Document documentPath="/forms/w9.pdf" />
+            </ViewerCanvas>
+          </WebViewerUI>
+        </WebViewerProvider>
+      </LoadPDFNet>
+    </LoadWebviewerCore>
+  );
+}
+```
