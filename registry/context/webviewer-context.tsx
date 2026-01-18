@@ -9,7 +9,7 @@ import {
 } from "react";
 import type { WebViewerContextValue } from "@/lib/webviewer-types";
 
-const WebViewerContext = createContext<WebViewerContextValue>({
+export const WebViewerContext = createContext<WebViewerContextValue>({
   Core: null,
   documentViewer: null,
 });
