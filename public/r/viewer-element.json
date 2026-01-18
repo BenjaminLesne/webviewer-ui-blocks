@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "viewer-element",
-  "type": "registry:component",
   "description": "Component that sets the documentViewer viewer element",
   "registryDependencies": [
     "https://webviewer-ui-blocks.vercel.app/r/use-core-instance.json"
@@ -9,8 +8,9 @@
   "files": [
     {
       "path": "registry/components/viewer-element.tsx",
-      "content": "\"use client\";\n\nimport { useEffect, useRef, type CSSProperties } from \"react\";\nimport { useCoreInstance } from \"@/hooks/use-core-instance\";\n\nexport type ViewerElementProps = {\n  /**\n   * Additional CSS class names for the viewer element.\n   */\n  className?: string;\n  /**\n   * Inline styles for the viewer element.\n   */\n  style?: CSSProperties;\n};\n\n/**\n * Component that sets the documentViewer's viewer element on mount.\n * This is where the PDF pages will be rendered.\n */\nexport const ViewerElement = ({ className, style }: ViewerElementProps) => {\n  const { documentViewer } = useCoreInstance();\n  const ref = useRef<HTMLDivElement>(null);\n\n  useEffect(() => {\n    if (ref.current) {\n      documentViewer.setViewerElement(ref.current);\n    }\n\n    return () => {\n      documentViewer.setViewerElement(null);\n    };\n  }, [documentViewer]);\n\n  return <div ref={ref} className={className} style={style} />;\n};\n",
+      "content": "\"use client\";\n\nimport { useEffect, useRef, type CSSProperties, type PropsWithChildren } from \"react\";\nimport { useCoreInstance } from \"@/hooks/use-core-instance\";\n\nexport type ViewerElementProps = PropsWithChildren<{\n  /**\n   * Additional CSS class names for the viewer element.\n   */\n  className?: string;\n  /**\n   * Inline styles for the viewer element.\n   */\n  style?: CSSProperties;\n}>;\n\n/**\n * Component that sets the documentViewer's viewer element on mount.\n * This is where the PDF pages will be rendered.\n */\nexport const ViewerElement = ({ children, className, style }: ViewerElementProps) => {\n  const { documentViewer } = useCoreInstance();\n  const ref = useRef<HTMLDivElement>(null);\n\n  useEffect(() => {\n    if (ref.current) {\n      documentViewer.setViewerElement(ref.current);\n    }\n\n    return () => {\n      documentViewer.setViewerElement(null);\n    };\n  }, [documentViewer]);\n\n  return (\n    <div ref={ref} className={className} style={style}>\n      {children}\n    </div>\n  );\n};\n",
       "type": "registry:component"
     }
-  ]
+  ],
+  "type": "registry:component"
 }

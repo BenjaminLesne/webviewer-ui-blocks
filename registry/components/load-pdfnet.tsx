@@ -2,6 +2,7 @@
 
 import { useState, useEffect, type PropsWithChildren, type ReactNode } from "react";
 import Script from "next/script";
+import { DEFAULT_WEBVIEWER_PATH } from "@/lib/webviewer-constants";
 
 // Track if PDFNet script has been loaded globally to avoid duplicate loading
 let pdfnetScriptLoaded = false;
@@ -9,7 +10,7 @@ let pdfnetScriptLoaded = false;
 export type LoadPDFNetProps = PropsWithChildren<{
   /**
    * Path to the PDFTron/Apryse WebViewer files.
-   * Defaults to NEXT_PUBLIC_PDFTRON_PATH environment variable or "/webviewer/lib".
+   * Defaults to NEXT_PUBLIC_PDFTRON_PATH environment variable or "/webviewer".
    */
   pdftronPath?: string;
   /**
@@ -34,7 +35,7 @@ export type LoadPDFNetProps = PropsWithChildren<{
 
 export const LoadPDFNet = ({
   children,
-  pdftronPath = process.env.NEXT_PUBLIC_PDFTRON_PATH || "/webviewer/lib",
+  pdftronPath = process.env.NEXT_PUBLIC_PDFTRON_PATH || DEFAULT_WEBVIEWER_PATH,
   loadingUI = <div>Loading PDFNet...</div>,
   errorUI = <div>Failed to load PDFNet script</div>,
   onLoad,

@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "use-zoom",
-  "type": "registry:hook",
   "description": "Hook for zoom level state and actions",
   "registryDependencies": [
     "https://webviewer-ui-blocks.vercel.app/r/use-core-instance.json"
@@ -12,5 +11,6 @@
       "content": "\"use client\";\n\nimport { useCallback, useSyncExternalStore } from \"react\";\nimport { useCoreInstance } from \"@/hooks/use-core-instance\";\n\nconst ZOOM_STEP = 0.25;\nconst MIN_ZOOM = 0.1;\nconst MAX_ZOOM = 10;\n\n/**\n * Hook for managing zoom level state and actions.\n *\n * Uses useSyncExternalStore to subscribe to documentViewer zoom changes,\n * ensuring the UI stays in sync with the actual zoom level.\n *\n * @returns Object containing:\n *   - zoomLevel: Current zoom level (1 = 100%)\n *   - zoomIn: Function to increase zoom by 25%\n *   - zoomOut: Function to decrease zoom by 25%\n *   - zoomTo: Function to set zoom to a specific level\n *\n * @example\n * ```tsx\n * const { zoomLevel, zoomIn, zoomOut, zoomTo } = useZoom();\n *\n * return (\n *   <div>\n *     <button onClick={zoomOut}>-</button>\n *     <span>{Math.round(zoomLevel * 100)}%</span>\n *     <button onClick={zoomIn}>+</button>\n *     <button onClick={() => zoomTo(1)}>Reset</button>\n *   </div>\n * );\n * ```\n */\nexport const useZoom = () => {\n  const { documentViewer } = useCoreInstance();\n\n  const subscribe = useCallback(\n    (callback: () => void) => {\n      documentViewer.addEventListener(\"zoomUpdated\", callback);\n      return () => {\n        documentViewer.removeEventListener(\"zoomUpdated\", callback);\n      };\n    },\n    [documentViewer]\n  );\n\n  const getSnapshot = useCallback(() => {\n    return documentViewer.getZoomLevel();\n  }, [documentViewer]);\n\n  const getServerSnapshot = useCallback(() => {\n    return 1; // Default zoom level for SSR\n  }, []);\n\n  const zoomLevel = useSyncExternalStore(\n    subscribe,\n    getSnapshot,\n    getServerSnapshot\n  );\n\n  const zoomTo = useCallback(\n    (level: number) => {\n      const clampedLevel = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, level));\n      documentViewer.zoomTo(clampedLevel);\n    },\n    [documentViewer]\n  );\n\n  const zoomIn = useCallback(() => {\n    const newLevel = zoomLevel + ZOOM_STEP;\n    zoomTo(newLevel);\n  }, [zoomLevel, zoomTo]);\n\n  const zoomOut = useCallback(() => {\n    const newLevel = zoomLevel - ZOOM_STEP;\n    zoomTo(newLevel);\n  }, [zoomLevel, zoomTo]);\n\n  return {\n    zoomLevel,\n    zoomIn,\n    zoomOut,\n    zoomTo,\n  };\n};\n",
       "type": "registry:hook"
     }
-  ]
+  ],
+  "type": "registry:hook"
 }

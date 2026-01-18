@@ -8,6 +8,7 @@ import {
   type PropsWithChildren,
 } from "react";
 import type { WebViewerContextValue } from "@/lib/webviewer-types";
+import { DEFAULT_WEBVIEWER_CORE_PATH } from "@/lib/webviewer-constants";
 
 export const WebViewerContext = createContext<WebViewerContextValue>({
   Core: null,
@@ -17,7 +18,7 @@ export const WebViewerContext = createContext<WebViewerContextValue>({
 export type WebViewerProviderProps = PropsWithChildren<{
   /**
    * Path to the WebViewer worker files.
-   * Defaults to NEXT_PUBLIC_PDFTRON_PATH environment variable or "/webviewer/lib".
+   * Defaults to NEXT_PUBLIC_PDFTRON_PATH environment variable or "/webviewer/core".
    */
   workerPath?: string;
 }>;
@@ -26,7 +27,7 @@ export const WebViewerProvider = ({
   children,
   workerPath = process.env.NEXT_PUBLIC_PDFTRON_PATH
     ? `${process.env.NEXT_PUBLIC_PDFTRON_PATH}/core`
-    : "/webviewer/lib/core",
+    : DEFAULT_WEBVIEWER_CORE_PATH,
 }: WebViewerProviderProps) => {
   // Initialize Core and DocumentViewer synchronously
   // window.Core is guaranteed to exist since we're a child of LoadWebviewerCore

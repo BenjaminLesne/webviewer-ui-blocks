@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "use-run-with-license",
-  "type": "registry:hook",
   "description": "Hook for wrapping PDFNet operations with license",
   "registryDependencies": [
     "https://webviewer-ui-blocks.vercel.app/r/use-core-instance.json"
@@ -12,5 +11,6 @@
       "content": "\"use client\";\n\nimport { useCallback } from \"react\";\nimport { useCoreInstance } from \"@/hooks/use-core-instance\";\n\n/**\n * Hook for running PDFNet operations with automatic license key handling.\n *\n * PDFNet operations require a license key and proper cleanup. This hook provides\n * a wrapper function that handles both automatically using PDFNet.runWithCleanup.\n *\n * @param licenseKey - Optional license key. Defaults to NEXT_PUBLIC_PDFTRON_LICENSE env var.\n * @returns A function that wraps async PDFNet operations with license and cleanup handling.\n *\n * @example\n * ```tsx\n * const runWithLicense = useRunWithLicense();\n *\n * const result = await runWithLicense(async () => {\n *   const doc = await PDFNet.PDFDoc.createFromURL(url);\n *   // ... perform operations\n *   return doc;\n * });\n * ```\n */\nexport const useRunWithLicense = (\n  licenseKey: string = process.env.NEXT_PUBLIC_PDFTRON_LICENSE ?? \"\"\n) => {\n  const { Core } = useCoreInstance();\n\n  const runWithLicense = useCallback(\n    async <T>(fn: () => Promise<T>): Promise<T> => {\n      const PDFNet = Core.PDFNet;\n\n      if (!PDFNet) {\n        throw new Error(\n          \"PDFNet is not available. Make sure LoadPDFNet is rendered before using this hook.\"\n        );\n      }\n\n      return PDFNet.runWithCleanup(fn, licenseKey);\n    },\n    [Core, licenseKey]\n  );\n\n  return runWithLicense;\n};\n",
       "type": "registry:hook"
     }
-  ]
+  ],
+  "type": "registry:hook"
 }

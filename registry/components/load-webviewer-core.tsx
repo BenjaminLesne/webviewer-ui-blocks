@@ -8,11 +8,12 @@ import {
   type ReactNode,
 } from "react";
 import Script from "next/script";
+import { DEFAULT_WEBVIEWER_PATH } from "@/lib/webviewer-constants";
 
 export type LoadWebviewerCoreProps = PropsWithChildren<{
   /**
    * Path to the PDFTron/Apryse WebViewer files.
-   * Defaults to NEXT_PUBLIC_PDFTRON_PATH environment variable or "/webviewer/lib".
+   * Defaults to NEXT_PUBLIC_PDFTRON_PATH environment variable or "/webviewer".
    */
   pdftronPath?: string;
   /**
@@ -37,7 +38,7 @@ export type LoadWebviewerCoreProps = PropsWithChildren<{
 
 export const LoadWebviewerCore = ({
   children,
-  pdftronPath = process.env.NEXT_PUBLIC_PDFTRON_PATH || "/webviewer/lib",
+  pdftronPath = process.env.NEXT_PUBLIC_PDFTRON_PATH || DEFAULT_WEBVIEWER_PATH,
   loadingUI = <div>Loading WebViewer...</div>,
   errorUI = <div>Failed to load WebViewer Core script</div>,
   onLoad,
