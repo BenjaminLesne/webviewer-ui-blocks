@@ -1,0 +1,162 @@
+{
+  "project": "webviewer-ui-blocks",
+  "description": "A shadcn-style component registry for Apryse WebViewer UI components using Fumadocs + native shadcn CLI",
+  "stories": [
+    {
+      "id": "story-001",
+      "priority": 1,
+      "title": "Set up registry structure and build pipeline",
+      "description": "Create the registry.json configuration, directory structure, and build script for the shadcn registry",
+      "acceptance_criteria": [
+        "registry.json is created at project root with schema reference, name, homepage, and all component/hook definitions",
+        "Directory structure exists: registry/{components,hooks,context,lib}",
+        "shadcn CLI is added as dev dependency",
+        "package.json has registry:build script that runs 'shadcn build'",
+        "Documentation directories exist: components/docs, content/docs/{components,hooks,context}"
+      ],
+      "passes": true
+    },
+    {
+      "id": "story-002",
+      "priority": 2,
+      "title": "Implement WebViewer types and context",
+      "description": "Create the foundational types and React context for WebViewer Core and DocumentViewer instances",
+      "acceptance_criteria": [
+        "registry/lib/webviewer-types.ts exports DocumentViewer and WebViewerContextValue types",
+        "registry/context/webviewer-context.tsx provides WebViewerProvider component",
+        "WebViewerProvider initializes Core instance and DocumentViewer",
+        "useWebViewerContext hook is exported for accessing context"
+      ],
+      "passes": true
+    },
+    {
+      "id": "story-003",
+      "priority": 3,
+      "title": "Implement core hooks",
+      "description": "Create the hooks for accessing WebViewer instances and functionality",
+      "acceptance_criteria": [
+        "registry/hooks/use-core-instance.ts provides access to Core and documentViewer with error handling",
+        "registry/hooks/use-run-with-license.ts wraps PDFNet operations with license",
+        "registry/hooks/use-zoom.ts provides zoomLevel, zoomIn, zoomOut, and zoomTo functionality using useSyncExternalStore"
+      ],
+      "passes": true
+    },
+    {
+      "id": "story-004",
+      "priority": 4,
+      "title": "Implement script loader components",
+      "description": "Create components for dynamically loading WebViewer Core and PDFNet scripts",
+      "acceptance_criteria": [
+        "registry/components/load-webviewer-core.tsx loads webviewer-core.min.js with loading/error states",
+        "registry/components/load-pdfnet.tsx loads PDFNet.js with loading/error states",
+        "Both components accept pdftronPath prop with NEXT_PUBLIC_PDFTRON_PATH env var default",
+        "Both components support custom loading and error UI via props"
+      ],
+      "passes": true
+    },
+    {
+      "id": "story-005",
+      "priority": 5,
+      "title": "Implement viewer components",
+      "description": "Create the viewer element, scroll container, and composite canvas components",
+      "acceptance_criteria": [
+        "registry/components/viewer-element.tsx sets documentViewer.setViewerElement on mount",
+        "registry/components/scroll-view-container.tsx sets documentViewer.setScrollViewElement on mount",
+        "registry/components/viewer-canvas.tsx combines ScrollViewContainer and ViewerElement",
+        "All components support className and style props for customization"
+      ],
+      "passes": true
+    },
+    {
+      "id": "story-006",
+      "priority": 6,
+      "title": "Implement Document component",
+      "description": "Create the Document component for loading PDF documents into the viewer",
+      "acceptance_criteria": [
+        "registry/components/document.tsx loads documents via documentPath prop",
+        "Component uses @tanstack/react-query for mutation handling",
+        "Component supports both relative and absolute URLs",
+        "onLoad and onError callbacks are supported"
+      ],
+      "passes": true
+    },
+    {
+      "id": "story-007",
+      "priority": 7,
+      "title": "Implement zoom control components",
+      "description": "Create ZoomControls and Zoomer components for zoom functionality",
+      "acceptance_criteria": [
+        "registry/components/zoom-controls.tsx provides simple +/- zoom buttons with percentage display",
+        "registry/components/zoomer.tsx provides modern vertical zoom UI with editable input",
+        "Both components use the useZoom hook for zoom state and actions",
+        "Zoomer syncs input value with actual zoom level"
+      ],
+      "passes": true
+    },
+    {
+      "id": "story-008",
+      "priority": 8,
+      "title": "Create documentation navigation structure",
+      "description": "Set up meta.json files for Fumadocs navigation",
+      "acceptance_criteria": [
+        "content/docs/components/meta.json lists all component pages in correct order",
+        "content/docs/hooks/meta.json lists all hook pages",
+        "content/docs/context/meta.json lists context pages",
+        "Navigation structure matches the dependency hierarchy"
+      ],
+      "passes": true
+    },
+    {
+      "id": "story-009",
+      "priority": 9,
+      "title": "Create documentation helper components",
+      "description": "Build reusable components for documentation pages",
+      "acceptance_criteria": [
+        "components/docs/install-command.tsx shows copyable npx shadcn add command",
+        "components/docs/component-source.tsx displays component source code from registry files",
+        "Copy button works and shows feedback on InstallCommand",
+        "ComponentSource handles component, hook, context, and lib types"
+      ],
+      "passes": true
+    },
+    {
+      "id": "story-010",
+      "priority": 10,
+      "title": "Create MDX documentation pages",
+      "description": "Write documentation pages for all registry items",
+      "acceptance_criteria": [
+        "Each component has an MDX page with installation command, usage example, props table, and source",
+        "Each hook has an MDX page with installation, usage, and API documentation",
+        "Context page documents WebViewerProvider and useWebViewerContext",
+        "Installation page explains environment variables and setup steps"
+      ],
+      "passes": true
+    },
+    {
+      "id": "story-011",
+      "priority": 11,
+      "title": "Build and verify registry",
+      "description": "Build the shadcn registry and verify all JSON files are generated correctly",
+      "acceptance_criteria": [
+        "npx shadcn build generates public/r/*.json files for all registry items",
+        "All generated JSON files are valid and include correct file contents",
+        "Registry dependencies resolve correctly in generated files",
+        "npm run build completes without errors"
+      ],
+      "passes": true
+    },
+    {
+      "id": "story-012",
+      "priority": 12,
+      "title": "Test installation flow",
+      "description": "Verify components can be installed in a fresh Next.js project",
+      "acceptance_criteria": [
+        "npx shadcn add <url>/r/viewer-canvas.json installs all dependencies correctly",
+        "Files are created in correct locations matching user's components.json paths",
+        "npm dependencies (@pdftron/webviewer, etc.) are added to package.json",
+        "Registry dependencies are automatically installed"
+      ],
+      "passes": true
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "project": "your-project-name",
+  "description": "Brief project description",
+  "stories": [
+    {
+      "id": "story-001",
+      "priority": 1,
+      "title": "Example: Add user authentication",
+      "description": "Implement basic user login/logout functionality",
+      "acceptance_criteria": [
+        "Users can log in with email/password",
+        "Users can log out",
+        "Session persists across page refreshes"
+      ],
+      "passes": false
+    },
+    {
+      "id": "story-002",
+      "priority": 2,
+      "title": "Example: Add unit tests for auth",
+      "description": "Write tests for the authentication module",
+      "acceptance_criteria": [
+        "Login function is tested",
+        "Logout function is tested",
+        "Edge cases are covered"
+      ],
+      "passes": false
+    }
+  ]
+}

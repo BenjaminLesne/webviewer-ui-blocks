@@ -25,4 +25,4 @@ yarn-error.log*
 .vercel
 next-env.d.ts
 
-/ai/
+.pnpm-store/
