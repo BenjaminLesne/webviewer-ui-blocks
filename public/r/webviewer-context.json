@@ -7,7 +7,7 @@
     "@pdftron/webviewer"
   ],
   "registryDependencies": [
-    "webviewer-types"
+    "https://webviewer-ui-blocks.vercel.app/r/webviewer-types.json"
   ],
   "files": [
     {

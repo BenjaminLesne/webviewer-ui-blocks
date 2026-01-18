@@ -4,8 +4,8 @@
   "type": "registry:component",
   "description": "Composite component combining ScrollViewContainer and ViewerElement",
   "registryDependencies": [
-    "scroll-view-container",
-    "viewer-element"
+    "https://webviewer-ui-blocks.vercel.app/r/scroll-view-container.json",
+    "https://webviewer-ui-blocks.vercel.app/r/viewer-element.json"
   ],
   "files": [
     {

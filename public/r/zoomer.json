@@ -4,7 +4,7 @@
   "type": "registry:component",
   "description": "Modern vertical zoom UI with editable input",
   "registryDependencies": [
-    "use-zoom"
+    "https://webviewer-ui-blocks.vercel.app/r/use-zoom.json"
   ],
   "files": [
     {

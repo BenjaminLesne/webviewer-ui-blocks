@@ -4,7 +4,7 @@
   "type": "registry:hook",
   "description": "Hook for accessing Core and DocumentViewer instances",
   "registryDependencies": [
-    "webviewer-context"
+    "https://webviewer-ui-blocks.vercel.app/r/webviewer-context.json"
   ],
   "files": [
     {

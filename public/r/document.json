@@ -7,7 +7,7 @@
     "@tanstack/react-query"
   ],
   "registryDependencies": [
-    "use-core-instance"
+    "https://webviewer-ui-blocks.vercel.app/r/use-core-instance.json"
   ],
   "files": [
     {

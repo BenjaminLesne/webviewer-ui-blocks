@@ -19,7 +19,7 @@
       "type": "registry:lib",
       "description": "React context for WebViewer Core and DocumentViewer instances",
       "dependencies": ["@pdftron/webviewer"],
-      "registryDependencies": ["webviewer-types"],
+      "registryDependencies": ["https://webviewer-ui-blocks.vercel.app/r/webviewer-types.json"],
       "files": [
         {
           "path": "registry/context/webviewer-context.tsx",
@@ -31,7 +31,7 @@
       "name": "use-core-instance",
       "type": "registry:hook",
       "description": "Hook for accessing Core and DocumentViewer instances",
-      "registryDependencies": ["webviewer-context"],
+      "registryDependencies": ["https://webviewer-ui-blocks.vercel.app/r/webviewer-context.json"],
       "files": [
         {
           "path": "registry/hooks/use-core-instance.ts",
@@ -43,7 +43,7 @@
       "name": "use-run-with-license",
       "type": "registry:hook",
       "description": "Hook for wrapping PDFNet operations with license",
-      "registryDependencies": ["use-core-instance"],
+      "registryDependencies": ["https://webviewer-ui-blocks.vercel.app/r/use-core-instance.json"],
       "files": [
         {
           "path": "registry/hooks/use-run-with-license.ts",
@@ -55,7 +55,7 @@
       "name": "use-zoom",
       "type": "registry:hook",
       "description": "Hook for zoom level state and actions",
-      "registryDependencies": ["use-core-instance"],
+      "registryDependencies": ["https://webviewer-ui-blocks.vercel.app/r/use-core-instance.json"],
       "files": [
         {
           "path": "registry/hooks/use-zoom.ts",
@@ -89,7 +89,7 @@
       "name": "viewer-element",
       "type": "registry:component",
       "description": "Component that sets the documentViewer viewer element",
-      "registryDependencies": ["use-core-instance"],
+      "registryDependencies": ["https://webviewer-ui-blocks.vercel.app/r/use-core-instance.json"],
       "files": [
         {
           "path": "registry/components/viewer-element.tsx",
@@ -101,7 +101,7 @@
       "name": "scroll-view-container",
       "type": "registry:component",
       "description": "Component that sets the documentViewer scroll view element",
-      "registryDependencies": ["use-core-instance"],
+      "registryDependencies": ["https://webviewer-ui-blocks.vercel.app/r/use-core-instance.json"],
       "files": [
         {
           "path": "registry/components/scroll-view-container.tsx",
@@ -113,7 +113,7 @@
       "name": "viewer-canvas",
       "type": "registry:component",
       "description": "Composite component combining ScrollViewContainer and ViewerElement",
-      "registryDependencies": ["scroll-view-container", "viewer-element"],
+      "registryDependencies": ["https://webviewer-ui-blocks.vercel.app/r/scroll-view-container.json", "https://webviewer-ui-blocks.vercel.app/r/viewer-element.json"],
       "files": [
         {
           "path": "registry/components/viewer-canvas.tsx",
@@ -126,7 +126,7 @@
       "type": "registry:component",
       "description": "Component for loading PDF documents into the viewer",
       "dependencies": ["@tanstack/react-query"],
-      "registryDependencies": ["use-core-instance"],
+      "registryDependencies": ["https://webviewer-ui-blocks.vercel.app/r/use-core-instance.json"],
       "files": [
         {
           "path": "registry/components/document.tsx",
@@ -138,7 +138,7 @@
       "name": "zoom-controls",
       "type": "registry:component",
       "description": "Simple zoom controls with +/- buttons and percentage display",
-      "registryDependencies": ["use-zoom"],
+      "registryDependencies": ["https://webviewer-ui-blocks.vercel.app/r/use-zoom.json"],
       "files": [
         {
           "path": "registry/components/zoom-controls.tsx",
@@ -150,7 +150,7 @@
       "name": "zoomer",
       "type": "registry:component",
       "description": "Modern vertical zoom UI with editable input",
-      "registryDependencies": ["use-zoom"],
+      "registryDependencies": ["https://webviewer-ui-blocks.vercel.app/r/use-zoom.json"],
       "files": [
         {
           "path": "registry/components/zoomer.tsx",

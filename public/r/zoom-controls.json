@@ -4,7 +4,7 @@
   "type": "registry:component",
   "description": "Simple zoom controls with +/- buttons and percentage display",
   "registryDependencies": [
-    "use-zoom"
+    "https://webviewer-ui-blocks.vercel.app/r/use-zoom.json"
   ],
   "files": [
     {
