@@ -1,6 +1,9 @@
 # deps
 /node_modules
 
+# webviewer static files (copied from node_modules)
+/public/webviewer
+
 # generated content
 .source
 

@@ -8,7 +8,8 @@
     "start": "next start",
     "types:check": "fumadocs-mdx && next typegen && tsc --noEmit",
     "typecheck": "fumadocs-mdx && next typegen && tsc --noEmit",
-    "postinstall": "fumadocs-mdx",
+    "postinstall": "fumadocs-mdx && pnpm run move-static",
+    "move-static": "rm -rf public/webviewer && mkdir -p public/webviewer && cp -r node_modules/@pdftron/webviewer/public/core public/webviewer/core",
     "lint": "eslint",
     "test": "echo \"No tests configured yet\" && exit 0",
     "registry:build": "npx shadcn build"
